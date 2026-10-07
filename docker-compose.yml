@@ -1,0 +1,35 @@
+services:
+  postgres:
+    build:
+      context: .
+      dockerfile: Dockerfile.db
+    container_name: postgres
+    restart: unless-stopped
+    ports:
+      - "${DB_PORT}:5432"
+    environment:
+      POSTGRES_USER: ${DB_USR}
+      POSTGRES_PASSWORD: ${DB_PSWD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d
+
+  app:
+    build:
+      context: .
+      target: dev
+    ports:
+      - "${VITE_APP_PORT}:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.nuxt
+    environment:
+      - WATCHPACK_POLLING=true
+      - DATABASE_URL=postgres://${DB_USR}:${DB_PSWD}@postgres:5432/${DB_NAME}
+    depends_on:
+      - postgres
+
+volumes:
+  postgres:

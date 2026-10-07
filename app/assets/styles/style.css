@@ -1,0 +1,71 @@
+:root {
+  --variable: blue;
+}
+
+@font-face{
+  font-family: 'Favorite';
+  src: url('~/assets/fonts/ComicSansMS.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+html, body {
+  background-color: #222;
+  color: white;
+  font-family: 'Favorite';
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 100dvh;
+}
+
+button,a {
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+}
+
+a {
+  display: inline-block; 
+  color: inherit;
+  text-decoration: none;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  &:hover {
+    text-decoration: underline;
+  }
+  &:focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+  &:focus:not(:focus-visible) {
+    outline: none;
+  }
+}
+
+ul, ol {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+h1,h2,h3,h4,h5,h6,li,a,button,main,body {
+  margin: 0;
+  padding: 0;
+}
+
+dialog {
+  background-color: transparent;
+  border: none;
+
+  &::backdrop {
+    background-color: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    border: none
+  }
+}
