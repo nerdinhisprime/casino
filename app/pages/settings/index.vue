@@ -1,4 +1,12 @@
 <script setup lang="ts">
+  const newUsername = ref<string>()
+
+  const oldPassword = ref<string>()
+  const newPassword = ref<string>()
+
+  const deleteUsername = ref<string>()
+  const deleteConfirmation = ref<string>()
+
   const { user } = useUser()
   const modalUsernameRef = ref<InstanceType<typeof AppDialog> | null>(null);
   const modalPasswordRef = ref<InstanceType<typeof AppDialog> | null>(null);
@@ -7,19 +15,42 @@
   const modalUsernameFn = () => modalUsernameRef.value?.open();
   const modalPasswordFn = () => modalPasswordRef.value?.open();
   const modalDeleteFn = () => modalDeleteRef.value?.open();
+
+  const changeNewUsername = async () => {
+    const res = await $fetch('/api/users/me/username', {
+      method: 'PATCH',
+      body: { username: newUsername.value }
+    })
+  }
+
+  const changeNewPassword = async () => {
+    const res = await $fetch('/api/users/me/password', {
+      method: 'PATCH',
+      body: {
+        oldPassword: oldPassword.value,
+        newPassword: newPassword.value
+      }
+    })
+  }
+
+  const deleteAccount = async () => {
+    await $fetch('/api/users/me', {
+      method: 'DELETE',
+      body: {
+        username: deleteUsername.value,
+        confirmation: deleteConfirmation.value,
+      },
+    });
+
+    await navigateTo('/login');
+  };
 </script>
 
 <template>
-  <AppNav />
-  <div>
-    <h2>{{ user?.username }}</h2>
-    <span>Your personal account</span>
-  </div>
-
   <div class="column">
     <div>
       <h3>Change username</h3>
-      <AppInput :placeholder="user?.username" />
+      <AppInput v-model="newUsername" @keyup.enter="changeNewUsername" :placeholder="user?.username" />
     </div>
     <div>
       <h3>Password and authentication</h3>
@@ -37,7 +68,7 @@
       <label for="oldPswd">
         <b>Old passord:</b>
       </label>
-      <AppInput id="oldPswd" />
+      <AppInput v-model="oldPassword" id="oldPswd" />
       <label for="newPswd">
         <b>New passord:</b>
       </label>
@@ -45,9 +76,9 @@
       <label for="confirmNewPswd">
         <b>Confirm new passord:</b>
       </label>
-      <AppInput id="confirmNewPswd" />
+      <AppInput v-model="newPassword" id="confirmNewPswd" />
     </div>
-    <AppButton class="button--default">Update password</AppButton>
+    <AppButton @click="changeNewPassword" class="button--default">Update password</AppButton>
   </AppDialog>
 
   <AppDialog ref="modalUsernameRef" class="modal">
@@ -61,12 +92,13 @@
 
     <div>
       <label for="delete"><b>Your username:</b></label>
-      <AppInput id="delete" />
+      <AppInput v-model="deleteUsername" id="delete" />
     </div>
     <div>
       <label for="delete"><b>To verify,</b> <i>delete my account</i> <b>type exactly as it appears:</b></label>
-      <AppInput id="delete" />
+      <AppInput v-model="deleteConfirmation" id="delete" />
     </div>
+    <AppButton @click="deleteAccount" class="button--warning">Delete my account</AppButton>
   </AppDialog>
 
 </template>
