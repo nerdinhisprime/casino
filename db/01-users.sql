@@ -3,6 +3,7 @@ CREATE TABLE IF NOT EXISTS users (
     username TEXT NOT NULL UNIQUE,
     password_hash TEXT NOT NULL,
     spins INTEGER NOT NULL DEFAULT 8,
+    balance INTEGER NOT NULL DEFAULT 0,
     is_guest BOOLEAN DEFAULT FALSE,
     last_spin_at TIMESTAMPTZ,
     last_spin_restore_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),

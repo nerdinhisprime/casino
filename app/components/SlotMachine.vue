@@ -174,7 +174,7 @@ async function spin() {
   try {
     const result = await $fetch<SpinResult>('/api/slots', {
       method: 'POST',
-      body: { bet: 10 },
+      body: { bet: 480 },
     })
 
     lastResult = result
@@ -276,7 +276,7 @@ onUnmounted(() => {
     <div ref="containerRef" class="slot-canvas-container" />
 
     <button :disabled="spinning" class="spin-button" @click="spin">
-      {{ spinning ? 'Вращение...' : 'SPIN' }}
+      {{ spinning ? 'Spinning...' : 'SPIN - 480' }}
     </button>
   </div>
 </template>
