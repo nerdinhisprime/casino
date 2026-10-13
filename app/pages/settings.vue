@@ -10,6 +10,7 @@
       <nav class="column">
         <NuxtLink to="/settings">Account</NuxtLink>
         <NuxtLink to="/settings/history">History</NuxtLink>
+        <NuxtLink to="/settings/store">Store</NuxtLink>
       </nav>
     </aside>
     <article class="settings-content">
