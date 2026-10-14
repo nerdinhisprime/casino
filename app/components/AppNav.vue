@@ -26,8 +26,13 @@ const isGuest = computed(() => user.value?.is_guest)
 }
 .navigator {
   display: flex;
+  align-items: center;
   justify-content: space-between;
-  margin-inline: 30px
+  padding: 14px 20px;
+  gap: 12px;
+  color: white;
+  background: #222;
+  border-bottom: 2px solid #8bbaff;
 }
 a {
   text-decoration: none;

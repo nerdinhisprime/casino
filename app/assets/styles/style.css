@@ -1,5 +1,9 @@
 :root {
-  --variable: blue;
+  --retro-blue: #0755c9;
+  --retro-light-blue: #b8d8ff;
+  --retro-border: #5689c9;
+  --retro-panel: #e7f0fc;
+  --retro-text: black;
 }
 
 @font-face{
@@ -9,10 +13,15 @@
   font-style: normal;
   font-display: swap;
 }
+
 html, body {
   background-color: #222;
   color: white;
   font-family: 'Favorite';
+}
+
+html {
+  min-height: 100%;
 }
 
 body {
@@ -20,6 +29,18 @@ body {
   flex-direction: column;
   width: 100%;
   height: 100dvh;
+  min-height: 100vh;
+  margin: 0;
+  color: var(--retro-text);
+  font-size: 14px;
+
+  background:
+    linear-gradient(
+      rgba(255, 255, 255, 0.5),
+      rgba(255, 255, 255, 0.5)
+    ),
+    url('/images/retro-background.jpg')
+      center center / cover fixed no-repeat;
 }
 
 button,a {

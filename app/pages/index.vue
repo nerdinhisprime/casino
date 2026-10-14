@@ -5,5 +5,6 @@ await fetchUser()
 </script>
 
 <template>
-  <NuxtLink to="/slots" class="slots">Слоты</NuxtLink>
+  <!--<NuxtLink to="/slots" class="slots">Слоты</NuxtLink>-->
+  <SlotMachine />
 </template>
