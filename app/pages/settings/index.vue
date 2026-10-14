@@ -8,6 +8,7 @@
   const deleteConfirmation = ref<string>()
 
   const { user } = useUser()
+  const { logout } = useAuth()
   const modalUsernameRef = ref<InstanceType<typeof AppDialog> | null>(null);
   const modalPasswordRef = ref<InstanceType<typeof AppDialog> | null>(null);
   const modalDeleteRef = ref<InstanceType<typeof AppDialog> | null>(null);
@@ -48,18 +49,48 @@
 
 <template>
   <div class="column">
-    <div>
+    <div class="space-between">
       <h3>Change username</h3>
-      <AppInput v-model="newUsername" @keyup.enter="changeNewUsername" :placeholder="user?.username" />
+      <AppInput
+        v-model="newUsername"
+        @keyup.enter="changeNewUsername"
+        :placeholder="user?.username"
+      />
     </div>
-    <div>
+    <div class="space-between">
       <h3>Password and authentication</h3>
-      <AppButton @click="modalPasswordFn" class="button--default">Change password</AppButton>
+      <AppButton
+        @click="modalPasswordFn"
+        class="button--default"
+      >
+        Change password
+      </AppButton>
     </div>
-    <div>
-      <h3 class="red">Delete account</h3>
-      <p>Once you delete your account, there is no going back. Please be certain.</p>
-      <AppButton @click="modalDeleteFn" class="button--warning">Delete Account</AppButton>
+    <div class="danger--container">
+      <div class="space-between">
+        <div>
+          <h4 class="red">Log out</h4>
+          <span>You can come back later.</span>
+        </div>
+        <AppButton
+          @click="logout"
+          class="button--warning"
+        >
+          Log out
+        </AppButton>
+      </div>
+      <div class="space-between">
+        <div>
+          <h4 class="red">Delete account</h4>
+          <span>Once you delete your account, there is no going back. Please be certain.</span>
+        </div>
+        <AppButton
+          @click="modalDeleteFn"
+          class="button--warning"
+        >
+          Delete Account
+        </AppButton>
+      </div>
     </div>
   </div>
 
@@ -107,23 +138,25 @@
 .red {
   color: red;
 }
-.button--default,
-.button--warning {
-  padding: 4px 12px;
-  border: solid gray 1px;
-  border-radius: 6px;
-  background-color: #222;
-  color: white;
-  &:hover {
-    background-color: #333;
-  }
-}
 .button--warning {
   color: red;
   &:hover {
     background-color: red;
     color: white;
   };
+}
+.danger-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.danger--container {
+  padding: 12px;
+  border: 1px solid red;
+  border-radius: 6px;
+}
+.space-between {
+  margin: 8px 0;
 }
 .modal {
   background-color: white;

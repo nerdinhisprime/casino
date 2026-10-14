@@ -1,7 +1,20 @@
 <script setup lang="ts">
 const { user } = useUser()
+const { logout } = useAuth()
 
 const isGuest = computed(() => user.value?.is_guest)
+
+const balance = ref<number | null>(null)
+let es: EventSource | null = null
+
+onMounted(() => {
+  es = new EventSource('/api/events')
+  es.onmessage = (e) => {
+    balance.value = JSON.parse(e.data).balance
+  }
+})
+
+onBeforeUnmount(() => es?.close())
 </script>
 
 <template>
@@ -12,18 +25,22 @@ const isGuest = computed(() => user.value?.is_guest)
           <NuxtLink to="/signup">signup</NuxtLink>
           <NuxtLink to="/login">login</NuxtLink>
         </AppDropDown>
-        <AppDropDown v-else-if="user" @click="console.log('chlen')" :buttonText="user.username || 'options'">
-          <NuxtLink to="/settings">Settings</NuxtLink>
-        </AppDropDown>
+        <div v-else-if="user" class="user-data">
+          <AppDropDown :buttonText="`${user.username} ${balance ?? ''}` || 'options'">
+            <NuxtLink to="/settings">Settings</NuxtLink>
+            <AppButton @click="logout">Log out</AppButton>
+          </AppDropDown>
+        </div>
     </div>
   </nav>
 </template>
 
 <style scoped>
-.username {
-  padding-right: 12px;
-  color: wheat;
+.user-data {
+  display: flex;
+  column-gap: 8px;
 }
+
 .navigator {
   display: flex;
   align-items: center;

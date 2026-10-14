@@ -39,7 +39,7 @@ body {
       rgba(255, 255, 255, 0.5),
       rgba(255, 255, 255, 0.5)
     ),
-    url('/images/retro-background.jpg')
+    url('../images/background.png')
       center center / cover fixed no-repeat;
 }
 

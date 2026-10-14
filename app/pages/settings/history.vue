@@ -1,4 +1,3 @@
-
 <script setup lang="ts">
 interface Spin {
   id: string;
@@ -82,13 +81,13 @@ const loadMore = async () => {
             <td>{{ new Date(spin.created_at).toLocaleString() }}</td>
           </tr>
         </tbody>
-        <button
+        <AppButton
           v-if="hasMore"
           :disabled="loadingMore"
           @click="loadMore"
         >
           {{ loadingMore ? 'Loading...' : 'Loading more...' }}
-        </button>
+        </AppButton>
 
         <p v-if="loadMoreError" class="error">
           {{ loadMoreError }}

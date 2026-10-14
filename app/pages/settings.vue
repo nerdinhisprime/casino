@@ -1,4 +1,6 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+  const { user } = useUser()
+</script>
 
 <template>
   <div>
@@ -6,11 +8,11 @@
     <span>Your personal account</span>
   </div>
   <div class="settings-container">
-    <aside class="settings-sedebar">
+    <aside class="settings-sidebar">
       <nav class="column">
-        <NuxtLink to="/settings">Account</NuxtLink>
-        <NuxtLink to="/settings/history">History</NuxtLink>
-        <NuxtLink to="/settings/store">Store</NuxtLink>
+        <NuxtLink to="/settings" class="button--default">Account</NuxtLink>
+        <NuxtLink to="/settings/history" class="button--default">History</NuxtLink>
+        <NuxtLink to="/settings/store" class="button--default">Store</NuxtLink>
       </nav>
     </aside>
     <article class="settings-content">
@@ -24,10 +26,12 @@
 <style scoped>
 .settings-container {
   display: grid;
-  grid-template-columns: 240px 1fr;
+  grid-template-columns: 160px 1fr;
   gap: 32px;
   max-width: 1200px;
   margin: 0 auto;
+}
+.settings-sidebar {
 }
 .settings-sidebar nav {
   display: flex;
