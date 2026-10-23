@@ -1,15 +1,12 @@
 # 🎰 Casino
 
-**English** · [Русский](README.ru.md)
+[Русский](README.md)
 
 A full-stack slot machine web app built with **Nuxt 4**, **Vue 3**, **PixiJS** and **PostgreSQL**. Players sign up, top up a virtual balance of gems, spin an animated 3-reel slot machine and track their spin history. The whole stack starts with one command via Docker Compose.
 
-> **Disclaimer:** this is a pet project built for learning and portfolio purposes. It uses a fictional in-game currency ("gems"). There is no real money, no payments and no real gambling.
-
-<!-- Add a screenshot or GIF here, e.g.:
-![Slot machine](docs/screenshot.png)
--->
-
+![слоты](docs/images/demo1.png)
+![регистрация](docs/images/demo2.png)
+![настройки](docs/images/demo3.png)
 ## ✨ Features
 
 - **Animated slot machine** rendered on a PixiJS canvas: three reels, staggered stops, win highlighting
@@ -105,7 +102,7 @@ docker run -p 3000:3000 --env-file .env casino
 
 The values in `.env.example` are development defaults only. Use your own credentials anywhere beyond localhost.
 
-## 🗂 Project structure
+## 🗂 Application structure
 
 ```
 casino/
@@ -140,33 +137,6 @@ users                                   spins
 ├── last_spin_at / last_spin_restore_at
 └── created_at / updated_at
 ```
-
-## 🔌 API
-
-| Method | Endpoint | Description |
-| --- | --- | --- |
-| `POST` | `/api/auth/signup` | Create an account (username ≥ 4, password ≥ 6 chars) |
-| `POST` | `/api/auth/login` | Log in, sets the session cookie |
-| `GET` | `/api/auth/me` | Current user (guest fallback when logged out) |
-| `POST` | `/api/slots` | Place a bet and spin: `{ bet }` → reward, symbols, new balance |
-| `GET` | `/api/users/me/balance` | Current balance |
-| `POST` | `/api/users/me/balance/add` | Top up from a preset pack (demo) |
-| `GET` | `/api/users/me/balance/events` | SSE stream of balance updates |
-| `GET` | `/api/users/me/history` | Paginated spin history (`limit` ≤ 100, `offset`) |
-| `PATCH` | `/api/users/me/username` | Change username |
-| `PATCH` | `/api/users/me/password` | Change password |
-| `DELETE` | `/api/users/me` | Delete account and its history (typed confirmation) |
-
-## 🛣 Known limitations & roadmap
-
-This is an actively evolving learning project. Things I know need work:
-
-- [ ] **Sessions:** replace the plain `user_id` cookie with signed, `httpOnly` session tokens
-- [ ] **Store:** top-up is a demo endpoint with no payment flow
-- [ ] **Spin limit:** the energy mechanic (`spins`, `MAX_SPINS`, `RESTORE_TIMING`, `restoreSpins` util) is scaffolded but not wired into the spin flow yet
-- [ ] **Bet size:** the bet is currently fixed on the client; add a bet selector
-- [ ] **Legacy prototype:** remove or migrate the early `/api/case` endpoint (case-opening mock, no persistence)
-- [ ] Tests (API and transaction logic), CI pipeline, rate limiting
 
 ## 📄 License
 
